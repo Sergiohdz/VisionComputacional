@@ -16,7 +16,7 @@ pygame.display.update()
 im = Image.open("imagen.jpg")
 pix = im.load()
 for x in range(0,1024): #Ancho
-  for y in range(0,768): #Largo
+	for y in range(0,768): #Largo
 		(r,g,b) = pix[x,y] 
 		promedio=(r+g+b)/3
 		pix[x,y] =(promedio,promedio,promedio)
@@ -26,24 +26,8 @@ imagen=pygame.image.load("escala.jpg")
 ventana.blit(imagen,(0,0))
 pygame.display.update()
  
-#Filtro
+#Mascara
 im = Image.open("escala.jpg")
-pix = im.load()
-for x in range(0,1024-1): #Ancho
-	for y in range(0,768-1): #Largo
-		(r,g,b) = pix[x,y] 
-		promedio=(r+g+b)/3
-		if promedio<=127:
-			pix[x,y] =(0,0,0)
-		else: 
-			pix[x,y] =(255,255,255)
-		
-im.save('filtrada.jpg')
-imagen=pygame.image.load("filtrada.jpg")
-ventana.blit(imagen,(0,0))
-pygame.display.update()
-
-im = Image.open("filtrada.jpg")
 pix = im.load()
 dirX = ([-1, 0, 1], [-2, 0, 2], [-1, 0, 1]) 
 dirY = ([1, 2, 1], [0, 0, 0], [-1, -2, -1])
@@ -71,7 +55,27 @@ imagen=pygame.image.load("convolucion.jpg")
 ventana.blit(imagen,(0,0))
 pygame.display.update()
 
+#Binarizacion
+im = Image.open("convolucion.jpg")
+pix = im.load()
+for x in range(0,1024-1): #Ancho
+	for y in range(0,768-1): #Largo
+		(r,g,b) = pix[x,y] 
+		promedio=(r+g+b)/3
+		if promedio<=127:
+			pix[x,y] =(0,0,0)
+		else: 
+			pix[x,y] =(255,255,255)
+		
+im.save('binarizada.jpg')
+imagen=pygame.image.load("binarizada.jpg")
+ventana.blit(imagen,(0,0))
+pygame.display.update()
+
+
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             exit()
+
+
